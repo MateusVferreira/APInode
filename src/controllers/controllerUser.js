@@ -1,5 +1,6 @@
 const { Usuario } = require('../database/connection');
 const { Validator } = require('node-input-validator');
+const config = require('../../config/app');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -78,7 +79,7 @@ const login = async function( requisicao, resposta ){
         "id" : usuario.id
     }
 
-    const token = jwt.sign( obj, "asdf15661989fasd", {expiresIn : '5h'} );
+    const token = jwt.sign( obj, config.jwt_secret, {expiresIn : '5h'} );
 
     resposta.json( { token : token } );
 
