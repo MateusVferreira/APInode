@@ -1,7 +1,8 @@
 const { Sequelize, DataTypes, Model  } = require('sequelize');
+const config = require('../../config/app');
 
-const conn = new Sequelize('APIacessos', 'root', 'root', {
-    host: 'localhost', // Host do banco de dados MySQL
+const conn = new Sequelize(config.db_name, config.db_user, config.db_password, {
+    host: config.db_server, // Host do banco de dados MySQL
     dialect: 'mysql',
   });
 
