@@ -1,11 +1,13 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { register, login} = require('./src/controllers/controllerUser')
+const { register, login} = require('./src/controllers/controllerUser');
+const config = require('./config/app')
 
 
 const app = express();
 app.use( express.json() );
 
+//autenticação com o token 
 const middlewareAutenticacao = function( requisicao, resposta, proximo ){
     const token = requisicao.headers.authorization;
 
@@ -27,6 +29,7 @@ const middlewareAutenticacao = function( requisicao, resposta, proximo ){
 
 }
 
+// caminhos
 app.post('/regiter', register );
 app.post('/login',  login );
 
@@ -38,7 +41,8 @@ app.get('/token', middlewareAutenticacao, (requisicao, resposta) => {
     resposta.json({ mensagem: "Token Válido", usuario });
 });
 
+const serverPort = config.server_port;
 
-app.listen("3000", () => {
-  console.log(`Servidor rodando na porta 3000`);
+app.listen(serverPort, () => {
+  console.log(`Servidor rodando na porta ${serverPort}`);
 });
